@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm test
+
+  # Optional: regenerates the Ax script from Honegumi, runs the notebook, and checks the Python color model
+  # against the browser's. Allowed to fail so a slow or broken Ax install does not block the site.
+  ax:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r ax/requirements.txt
+      - run: python -m pytest tests/python
+      - run: python scripts/build_ax.py
+      - name: The committed script matches what Honegumi generates now
+        run: git diff --exit-code -- ax/dilution.py ax/generated/
