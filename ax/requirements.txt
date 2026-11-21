@@ -1,0 +1,9 @@
+# Versions Honegumi 0.4.1 is tested with (its Colab examples pin ax-platform==0.4.3).
+honegumi==0.4.1
+ax-platform==0.4.3
+# Ax 0.4.3 fails under pandas 3 ("assignment destination is read-only" in the Winsorize transform).
+pandas<3
+nbformat
+nbclient
+ipykernel
+pytest

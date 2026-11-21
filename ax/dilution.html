@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Take the dilution problem to Ax · Optimization Live</title>
+<meta name="description" content="The dilution problem as a runnable Ax script, generated with Honegumi. Open it in Colab or copy it.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b6e8f'/%3E%3Cpath d='M5 24 L12 10 L18 19 L27 6' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="site-in">
+    <a class="brand" href="../">Optimization Live</a>
+    <nav class="crumbs" aria-label="Breadcrumb"><span>Take it to Ax</span> <span aria-hidden="true">/</span> <span aria-current="page">Dilution</span></nav>
+    <nav class="sitelinks" aria-label="Site">
+      <a href="../">Dilution workspace</a>
+      <a href="../lessons/surrogate-acquisition.html">Lesson</a>
+      <a href="https://honegumi.readthedocs.io/en/latest/" target="_blank" rel="noopener">Honegumi<span class="ext" aria-label="(opens in a new tab)">↗</span></a>
+      <a href="https://github.com/benderill/agent-O" target="_blank" rel="noopener">GitHub<span class="ext" aria-label="(opens in a new tab)">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap narrow">
+  <section class="intro">
+    <p class="badge" id="runBadge">Checking run status…</p>
+    <h1>Take the dilution problem to Ax</h1>
+    <p class="lede">You tuned this by hand in the simulator. Here is the same problem as code you could point at a physical lab, built on <a href="https://ax.dev/" target="_blank" rel="noopener">Ax</a> and BoTorch. The script starts from <a href="https://honegumi.readthedocs.io/en/latest/" target="_blank" rel="noopener">Honegumi</a> and runs in Colab with one click.</p>
+  </section>
+
+  <section class="card" aria-labelledby="h1map">
+    <h2 id="h1map">1. What maps to what</h2>
+    <div class="table-wrap plain">
+      <table class="map">
+        <thead><tr><th scope="col">In this site</th><th scope="col">In Ax</th></tr></thead>
+        <tbody>
+          <tr><td>Water (ml), 0 to 30</td><td>A range parameter <code>water</code> with bounds 0 and 30</td></tr>
+          <tr><td>Color difference ΔE, minimized</td><td>An objective <code>delta_e</code> with <code>minimize=True</code></td></tr>
+          <tr><td>Surrogate and acquisition picker</td><td>Chosen by Ax automatically: a few quasi-random (Sobol) trials, then a Gaussian process with BoTorch. You can override it.</td></tr>
+          <tr><td>Mix budget (8)</td><td>Number of trials in the loop, <code>N_TRIALS = 8</code></td></tr>
+          <tr><td>The pipette and camera</td><td><code>measure_delta_e(water)</code>. Here it is the same simulated color model as the site. In a real lab, replace it with your measurement.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h2code">
+    <h2 id="h2code">2. The script (generated with Honegumi, adapted, and run)</h2>
+    <p class="note">Highlighted lines are the changes to Honegumi's output, each marked <code>MOD</code>. Click the code to open it in Colab, where <em>Runtime › Run all</em> runs it.
+      Compare with <a href="generated/dilution.honegumi.py">Honegumi's unedited output</a>.</p>
+    <div class="codebox">
+      <pre id="codePre" title="Open in Colab"><code id="code">Loading the script…</code></pre>
+      <a class="codehint" href="https://colab.research.google.com/github/benderill/agent-O/blob/main/ax/dilution.ipynb" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">Open in Colab ↗</a>
+    </div>
+    <div class="actions">
+      <a class="btn primary" id="colab" href="https://colab.research.google.com/github/benderill/agent-O/blob/main/ax/dilution.ipynb" target="_blank" rel="noopener">Open in Colab<span class="ext" aria-label="(opens in a new tab)">↗</span></a>
+      <button type="button" class="secondary" id="copy">Copy script</button>
+      <a class="btn" href="dilution.ipynb" download>Download notebook</a>
+      <a class="btn" href="dilution.py" download>Download .py</a>
+      <span class="note" id="copyStatus" role="status" aria-live="polite"></span>
+    </div>
+    <p class="note" id="runDetail"></p>
+  </section>
+
+  <section class="card" aria-labelledby="h3hg">
+    <h2 id="h3hg">3. Change the setup in Honegumi</h2>
+    <p>Honegumi is a grid of options. Flip a switch and it writes the matching Ax code. This script was generated with the settings below. To add a constraint, a second objective or batches, change them on Honegumi's page and redo the edits marked <code>MOD</code>.</p>
+    <ul class="chips" id="chips">
+      <li>Objective: single</li>
+      <li>Model: default</li>
+      <li>Task: single</li>
+      <li>Categorical parameter: no</li>
+      <li>Constraints: none</li>
+      <li>Existing data: no</li>
+      <li>Synchrony: single</li>
+    </ul>
+    <div class="actions"><a class="btn" href="https://honegumi.readthedocs.io/en/latest/" target="_blank" rel="noopener">Open Honegumi<span class="ext" aria-label="(opens in a new tab)">↗</span></a></div>
+  </section>
+
+  <section class="card" aria-labelledby="h4learn">
+    <h2 id="h4learn">4. Keep learning</h2>
+    <ul class="links">
+      <li><a href="https://honegumi.readthedocs.io/en/latest/curriculum/tutorials/sobo/sobo.html" target="_blank" rel="noopener">Honegumi tutorial: single-objective optimization of 3D-printed materials<span class="ext" aria-label="(opens in a new tab)">↗</span></a></li>
+      <li><a href="https://honegumi.readthedocs.io/en/latest/curriculum/tutorials/benchmarking/benchmarking.html" target="_blank" rel="noopener">Honegumi tutorial: benchmarking acquisition functions<span class="ext" aria-label="(opens in a new tab)">↗</span></a></li>
+      <li><a href="https://honegumi.readthedocs.io/en/latest/curriculum/concepts/freq-vs-bayes/freq-vs-bayes.html" target="_blank" rel="noopener">Honegumi concept guide: frequentist vs. fully Bayesian Gaussian processes<span class="ext" aria-label="(opens in a new tab)">↗</span></a></li>
+      <li><a href="https://honegumi.readthedocs.io/en/latest/concepts.html" target="_blank" rel="noopener">All Honegumi concept guides<span class="ext" aria-label="(opens in a new tab)">↗</span></a></li>
+      <li><a href="https://ax.dev/" target="_blank" rel="noopener">Ax documentation<span class="ext" aria-label="(opens in a new tab)">↗</span></a></li>
+      <li><a href="../lessons/surrogate-acquisition.html">This site's lesson on surrogate models and acquisition functions</a></li>
+    </ul>
+  </section>
+
+  <p class="credit" id="credit">Credit: this page builds on <a href="https://github.com/sgbaird/honegumi" target="_blank" rel="noopener">Honegumi</a> (MIT license; Baird, Falkowski and Sparks, <i>npj Computational Materials</i>, 2026, <a href="https://doi.org/10.1038/s41524-026-02156-0" target="_blank" rel="noopener">doi:10.1038/s41524-026-02156-0</a>) and Meta's <a href="https://github.com/facebook/Ax" target="_blank" rel="noopener">Ax Platform</a> (MIT license). Optimization Live is not affiliated with either project.</p>
+</main>
+<script type="module" src="../src/ui/ax-page.js"></script>
+</body>
+</html>

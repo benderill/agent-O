@@ -1,0 +1,27 @@
+{
+  "ran": true,
+  "date": "2026-11-21",
+  "python": "3.12.10",
+  "ax_platform": "0.4.3",
+  "honegumi": "0.4.1",
+  "trials": 8,
+  "seed": 1,
+  "best_water_ml": 11.79,
+  "best_delta_e": 0.991,
+  "compare": {
+    "seeds": 10,
+    "median_best_delta_e": 0.283,
+    "all": [
+      0.991,
+      0.271,
+      0.296,
+      0.106,
+      0.226,
+      0.235,
+      0.313,
+      0.155,
+      0.311,
+      1.974
+    ]
+  }
+}

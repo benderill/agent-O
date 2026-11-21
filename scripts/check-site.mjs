@@ -99,7 +99,8 @@ async function actAx(page) {
   if (!/copied/i.test(await page.locator('#copyStatus').innerText())) bad.push('Copy gave no feedback');
   const clip = await page.evaluate(() => navigator.clipboard.readText().catch(() => ''));
   const file = await page.evaluate(() => fetch('dilution.py').then((r) => r.text()));
-  if (clip !== file) bad.push('clipboard does not match ax/dilution.py');
+  // The Windows clipboard turns line endings into CRLF, so compare without them.
+  if (clip.replace(/\r\n/g, '\n') !== file) bad.push('clipboard does not match ax/dilution.py');
   const badge = await page.locator('#runBadge').innerText();
   if (!/^(Tested|Untested)/.test(badge)) bad.push(`run badge is "${badge}"`);
   return bad;

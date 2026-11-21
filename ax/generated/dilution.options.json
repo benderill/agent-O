@@ -1,0 +1,18 @@
+{
+  "honegumi": "0.4.1",
+  "options": {
+    "objective": "single",
+    "model": "Default",
+    "task": "Single",
+    "categorical": false,
+    "custom_gen": false,
+    "sum_constraint": false,
+    "order_constraint": false,
+    "linear_constraint": false,
+    "composition_constraint": false,
+    "custom_threshold": false,
+    "existing_data": false,
+    "synchrony": "Single",
+    "visualize": false
+  }
+}
